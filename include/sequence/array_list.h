@@ -2,8 +2,7 @@
 #define _CONTAINERS_SEQUENCE_ARRAY_LIST_H_
 
 #include <stdio.h>
-
-typedef struct response response;
+#include <common/util.h>
 
 typedef struct array_list{
     size_t capacity;
