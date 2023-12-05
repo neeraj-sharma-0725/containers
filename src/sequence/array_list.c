@@ -15,16 +15,6 @@ void shrink_array_list(array_list* list){
 
 }
 
-array_list* init_array_list(){
-    array_list* list = (array_list*) malloc(sizeof(array_list));
-    list->capacity = 0;
-    list->size = 0;
-    list->display = display_array_list;
-    list->push = push_into_array_list;
-    list->insert = insert_into_array_list;
-    return list;
-}
-
 void push_into_array_list(array_list* list, int item){
     if(list->capacity <= list->size){
         expand_array_list(list);
@@ -59,6 +49,19 @@ void display_array_list(array_list* list){
     }
     printf("]\n");
     printf("}\n");
-
 }
 
+void pop_from_array_list(array_list* list){
+    
+}
+
+array_list* init_array_list(){
+    array_list* list = (array_list*) malloc(sizeof(array_list));
+    list->capacity = 0;
+    list->size = 0;
+    list->display = display_array_list;
+    list->push = push_into_array_list;
+    list->insert = insert_into_array_list;
+    list->pop = pop_from_array_list;
+    return list;
+}
