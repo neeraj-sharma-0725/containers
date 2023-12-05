@@ -1,9 +1,9 @@
 #include <sequence/array_list.h>
-
 #include <stdlib.h>
 
 void expand_array_list(array_list* list){
-    int* arr = (int*) malloc(list->capacity ? 1 : list->capacity * 2);
+    list->capacity = list->capacity == 0 ? 1 : list->capacity * 2;
+    int* arr = (int*) malloc(list->capacity);
     for(size_t i = 0; i < list->size; i++){
         arr[i] = list->arr[i];
     }
@@ -21,6 +21,7 @@ array_list* init_array_list(){
     list->size = 0;
     list->display = display_array_list;
     list->push = push_into_array_list;
+    list->insert = insert_into_array_list;
     return list;
 }
 
@@ -39,14 +40,17 @@ void insert_into_array_list(array_list* list, int index, int item){
     if(list->capacity <= list->size){
         expand_array_list(list);
     }
-    for(size_t i = list->size; i > index; i--){
+    for(size_t i = list->size++; i > index; i--){
         list->arr[i] = list->arr[i-1];
     }
     list->arr[index] = item;
 }
 
 void display_array_list(array_list* list){
-    printf("[");
+    printf("{\n");
+    printf("\tcapacity: %lu,\n", list->capacity);
+    printf("\tsize: %lu,\n", list->size);
+    printf("\tarr:[");
     for(size_t i = 0; i < list->size; i++){
         printf("%d", list->arr[i]);
         if(i != list->size - 1){
@@ -54,5 +58,7 @@ void display_array_list(array_list* list){
         }
     }
     printf("]\n");
+    printf("}\n");
+
 }
 

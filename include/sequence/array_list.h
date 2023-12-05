@@ -26,5 +26,9 @@ void push_into_array_list(array_list* list, int item);
 insert item into array list at specific index and increases the size 
 */
 void insert_into_array_list(array_list*, int index, int item);
+
+/*
+Displays contents of array_list along with size and capacity
+*/
 void display_array_list(array_list* list);
 #endif
