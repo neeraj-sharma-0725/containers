@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+typedef struct response response;
+
 typedef struct array_list{
     size_t capacity;
     size_t size;
@@ -10,7 +12,9 @@ typedef struct array_list{
     void (*display)(struct array_list*);
     void (*push)(struct array_list*, int);
     void (*insert) (struct array_list*, int, int);
+    void (*replace) (struct array_list*, int, int);
     void (*pop) (struct array_list* list);
+    response* (*get) (struct array_list* list, int);
 } array_list;
 
 /*
