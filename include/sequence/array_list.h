@@ -16,8 +16,6 @@ typedef struct array_list{
     response* (*get) (struct array_list* list, int);
 } array_list;
 
-/*
-Intitialize array list with size 0
-*/
 array_list* init_array_list();
+void delete_array_list(array_list*);
 #endif

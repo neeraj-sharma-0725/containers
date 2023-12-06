@@ -56,7 +56,7 @@ void display_array_list(array_list* list){
     printf("{\n");
     printf("\tcapacity: %lu,\n", list->capacity);
     printf("\tsize: %lu,\n", list->size);
-    printf("\tarr:[");
+    printf("\tlist:[");
     for(size_t i = 0; i < list->size; i++){
         printf("%d", list->arr[i]);
         if(i != list->size - 1){
@@ -100,4 +100,13 @@ array_list* init_array_list(){
     list->replace = replace_in_array_list;
     list->get = get_from_array_list;
     return list;
+}
+
+void delete_array_list(array_list* list){
+    if(list){
+        if(list->arr){
+            free(list->arr);
+        }
+        free(list);
+    }
 }
