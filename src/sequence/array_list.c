@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+const char* INVALID_INDEX = "invalid index\n";
+
 void expand_array_list(array_list* list){
     list->capacity = list->capacity == 0 ? 1 : list->capacity * 2;
     int* arr = (int*) malloc(list->capacity * sizeof(int));
@@ -31,8 +33,8 @@ void push_into_array_list(array_list* list, int item){
 }
 
 void insert_into_array_list(array_list* list, int index, int item){
-    if(index > list->size){
-        fprintf(stderr, "array index out of bounds \n");
+    if(index < 0 || index > list->size){
+        fprintf(stderr, "%s", INVALID_INDEX);
         return;
     }
     if(list->capacity <= list->size){
@@ -44,9 +46,23 @@ void insert_into_array_list(array_list* list, int index, int item){
     list->arr[index] = item;
 }
 
+void remove_at_index_from_array_list(array_list* list, int index){
+    if(index < 0 || index > list->size){
+        fprintf(stderr, "%s", INVALID_INDEX);
+        return;
+    }
+    for(int i = index; i < list->size; i++){
+        list->arr[i] = list->arr[i + 1];
+    }
+    list->size--;
+    if(list->size <= list->capacity/2){
+        shrink_array_list(list);
+    }
+}
+
 void replace_in_array_list(array_list* list, int index, int item){
-    if(index >= list->size){
-        fprintf(stderr, "array index out of bounds \n");
+    if(index > 0 || index >= list->size){
+        fprintf(stderr, "%s", INVALID_INDEX);
         return;
     }
     list->arr[index] = item;
@@ -81,7 +97,7 @@ void pop_from_array_list(array_list* list){
 response* get_from_array_list(array_list* list, int index){
     response* resp = (response*)malloc(sizeof(response));
     if(index >= list->size){
-        resp->error = strdup("array index out of bounds\n");
+        resp->error = strdup(INVALID_INDEX);
     } else {
         resp->error = NULL;
         resp->value = list->arr[index];
@@ -99,6 +115,7 @@ array_list* init_array_list(){
     list->pop = pop_from_array_list;
     list->replace = replace_in_array_list;
     list->get = get_from_array_list;
+    list->remove = remove_at_index_from_array_list;
     return list;
 }
 

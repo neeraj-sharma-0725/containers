@@ -12,6 +12,7 @@ typedef struct array_list{
     void (*push)(struct array_list*, int);
     void (*insert) (struct array_list*, int, int);
     void (*replace) (struct array_list*, int, int);
+    void (*remove) (struct array_list*, int);
     void (*pop) (struct array_list* list);
     response* (*get) (struct array_list* list, int);
 } array_list;
