@@ -10,7 +10,7 @@ int main(){
     list->insert(list, 0, 1);
     list->insert(list, 4, 7);
     list->display(list);
-    list->insert(list, -1, 5);
-    list->insert(list, 6, 3);
+    list->replace(list, 0, 2);
+    list->display(list);
     return 0;
 }

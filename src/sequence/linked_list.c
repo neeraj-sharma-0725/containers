@@ -51,6 +51,26 @@ void insert_into_linked_list(linked_list* list, int index, int item){
     list->size++;
 }
 
+void replace_in_linked_list(linked_list* list, int index, int item){
+    if(index < 0 || index >= list->size){
+        fprintf(stderr, "%s", INVALID_INDEX);
+        return;
+    }
+    node* nd = list->head;
+    while(index--){
+        nd = nd->next;
+    }
+    nd->val = item;
+}
+
+void remove_from_linked_list(linked_list* list, int index, int item){
+    if(index < 0 || index >= list->size){
+        fprintf(stderr, "%s", INVALID_INDEX);
+        return;
+    }
+    
+}
+
 void display_linked_list(linked_list* list){
     printf("{\n");
     printf("\tsize: %lu,\n", list->size);
@@ -75,5 +95,7 @@ linked_list* init_linked_list(){
     list->display = display_linked_list;
     list->push = push_into_linked_list;
     list->insert = insert_into_linked_list;
+    list->replace = replace_in_linked_list;
+    list->remove = remove_from_linked_list;
     return list;
 }
