@@ -1,28 +1,54 @@
 #include <sequence/linked_list.h>
 #include <stdlib.h>
 
+const char* INVALID_INDEX = "invalid index\n";
+
 node* create_node(int item){
     node* nd = (node*) malloc(sizeof(node));
     nd->val = item;
     return nd;
 }
 
-void push_into_linked_list(linked_list* list, int item){
+void push_front(linked_list* list, int item){
     node* nd = create_node(item);
-    if(list->head){
-        list->tail->next = nd;
-        list->tail = list->tail->next;
+    nd->next = list->head;
+    list->head = nd;
+}
+
+void push_back(linked_list* list, int item){
+    list->tail->next = create_node(item);
+    list->tail = list->tail->next;
+}
+
+void push_into_linked_list(linked_list* list, int item){
+    if(!list->head){
+        push_front(list, item);
+        list->tail = list->head;
     } else {
-        list->tail = list->head = nd;
+        push_back(list, item);
     }
+    list->size++;
 }
 
 void insert_into_linked_list(linked_list* list, int index, int item){
-    if(index > list->size){
-        fprintf(stderr, "array index out of bounds \n");
+    if(index < 0 || index > list->size){
+        fprintf(stderr, "%s", INVALID_INDEX);
         return;
     }
-    
+    if(index == 0){
+        push_front(list, item);
+    } else if(index == list->size){
+        push_back(list, item);
+    } else {
+        node* nd = list->head;
+        while(--index){
+            nd = nd->next;
+        }
+        node* next = nd->next;
+        nd->next = create_node(item);
+        nd->next->next = next;
+        }
+    list->size++;
 }
 
 void display_linked_list(linked_list* list){
