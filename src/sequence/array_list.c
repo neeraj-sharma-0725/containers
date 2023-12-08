@@ -47,7 +47,7 @@ void insert_into_array_list(array_list* list, int index, int item){
 }
 
 void remove_at_index_from_array_list(array_list* list, int index){
-    if(index < 0 || index > list->size){
+    if(index < 0 || index >= list->size){
         fprintf(stderr, "%s", INVALID_INDEX);
         return;
     }
@@ -61,7 +61,7 @@ void remove_at_index_from_array_list(array_list* list, int index){
 }
 
 void replace_in_array_list(array_list* list, int index, int item){
-    if(index > 0 || index >= list->size){
+    if(index < 0 || index >= list->size){
         fprintf(stderr, "%s", INVALID_INDEX);
         return;
     }
